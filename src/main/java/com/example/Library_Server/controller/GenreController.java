@@ -1,48 +1,49 @@
 package com.example.Library_Server.controller;
 
-import com.example.Library_Server.entity.BookEntity;
+import com.example.Library_Server.entity.GenreEntity;
+import com.example.Library_Server.service.GenreService;
+
 import com.example.Library_Server.response.BaseResponse;
 import com.example.Library_Server.response.DataResponse;
 import com.example.Library_Server.response.ListResponse;
-import com.example.Library_Server.service.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/book")
+@RequestMapping("api/v1/genre")
 @AllArgsConstructor
-public class BookController {
-    private final BookService service;
+public class GenreController {
+    private final GenreService service;
 
     @GetMapping("/all")
     public ResponseEntity<BaseResponse> getAll() {
-        return ResponseEntity.ok(new ListResponse<BookEntity>(true, "Список книг: ", service.findAll()));
+        return ResponseEntity.ok(new ListResponse<GenreEntity>(true, "Список жанров: ", service.findAll()));
     }
 
     @GetMapping
     public ResponseEntity<BaseResponse> by_id(@RequestParam Long id) {
         try {
-            return ResponseEntity.ok(new DataResponse<BookEntity>(true, "Найдена следующая книга: ", service.findById(id).orElseThrow()));
+            return ResponseEntity.ok(new DataResponse<GenreEntity>(true, "Найден следующий жанр: ", service.findById(id).orElseThrow()));
         } catch (RuntimeException exception) {
             return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
         }
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> save(@RequestBody BookEntity book) {
+    public ResponseEntity<BaseResponse> save(@RequestBody GenreEntity genre) {
         try {
-            return ResponseEntity.ok(new DataResponse<BookEntity>(true, "Книга сохранена.", service.save(book)));
+            return ResponseEntity.ok(new DataResponse<GenreEntity>(true, "Жанр сохранён.", service.save(genre)));
         } catch (RuntimeException exception) {
             return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
         }
     }
 
     @PutMapping
-    public ResponseEntity<BaseResponse> update(@RequestBody BookEntity book) {
+    public ResponseEntity<BaseResponse> update(@RequestBody GenreEntity genre) {
         try {
-            service.update(book);
-            return ResponseEntity.ok(new BaseResponse(true, "Книга сохранена."));
+            service.update(genre);
+            return ResponseEntity.ok(new BaseResponse(true, "Жанр сохранён."));
         } catch (RuntimeException exception) {
             return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
         }
@@ -51,9 +52,10 @@ public class BookController {
     @DeleteMapping("/{id}")
     public ResponseEntity<BaseResponse> delete (@PathVariable Long id){
         try {
-            return ResponseEntity.ok(new BaseResponse(true, "Книга удалена"));
+            return ResponseEntity.ok(new BaseResponse(true, "Жанр удалён"));
         } catch (RuntimeException exception) {
             return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
         }
     }
+
 }

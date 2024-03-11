@@ -1,25 +1,33 @@
 package com.example.Library_Server.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Data;
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
+
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "books")
 public class BookEntity {
-    @Column(name = "book_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
-    private String title;
-    private String author;
-    private String publishing;
-    private Integer year;
-    private String kind;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private AuthorEntity author;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private PublisherEntity publisher;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    private GenreEntity genre;
+    private String year;
 }

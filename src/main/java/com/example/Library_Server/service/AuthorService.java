@@ -1,7 +1,7 @@
 package com.example.Library_Server.service;
 
-import com.example.Library_Server.entity.BookEntity;
-import com.example.Library_Server.repository.BookRepository;
+import com.example.Library_Server.entity.AuthorEntity;
+import com.example.Library_Server.repository.AuthorRepository;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -14,22 +14,22 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 @Validated
-public class BookService {
-    private final BookRepository repository;
+public class AuthorService {
+    private final AuthorRepository repository;
 
-    public List<BookEntity> findAll(){
+    public List<AuthorEntity> findAll(){
         return repository.findAll();
     }
 
-    public Optional<BookEntity> findById(Long id){
+    public Optional<AuthorEntity> findById(Long id){
         return repository.findById(id);
     }
 
-    public BookEntity save (@Valid BookEntity data){
+    public AuthorEntity save (@Valid AuthorEntity data){
         return repository.save(data);
     }
 
-    public void update (BookEntity data){
+    public void update (AuthorEntity data){
         repository.save(data);
     }
 
