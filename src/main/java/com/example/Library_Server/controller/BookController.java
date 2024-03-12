@@ -1,6 +1,7 @@
 package com.example.Library_Server.controller;
 
 import com.example.Library_Server.entity.BookEntity;
+import com.example.Library_Server.entity.PublisherEntity;
 import com.example.Library_Server.response.BaseResponse;
 import com.example.Library_Server.response.DataResponse;
 import com.example.Library_Server.response.ListResponse;
@@ -28,6 +29,11 @@ public class BookController {
             return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
         }
     }
+
+//    @GetMapping()
+//    public ResponseEntity<BaseResponse> getPublisher(@RequestParam String title, @RequestParam String city){
+//        return ResponseEntity.ok(new ListResponse<PublisherEntity>(service.getPublisher)
+//    }
 
     @PostMapping
     public ResponseEntity<BaseResponse> save(@RequestBody BookEntity book) {

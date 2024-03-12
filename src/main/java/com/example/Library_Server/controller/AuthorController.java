@@ -5,16 +5,20 @@ import com.example.Library_Server.response.BaseResponse;
 import com.example.Library_Server.response.DataResponse;
 import com.example.Library_Server.response.ListResponse;
 import com.example.Library_Server.service.AuthorService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Автор", description = "Позволяет управлять авторами")
 @RestController
 @RequestMapping("api/v1/author")
 @AllArgsConstructor
 public class AuthorController {
     private final AuthorService service;
 
+    @Operation(summary = "Получить всех авторов", description = "Выводит список всех существующих в базе данных авторов")
     @GetMapping("/all")
     public ResponseEntity<BaseResponse> getAll() {
         return ResponseEntity.ok(new ListResponse<AuthorEntity>(true, "Список авторов: ", service.findAll()));
