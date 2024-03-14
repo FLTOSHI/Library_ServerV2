@@ -34,4 +34,8 @@ public class BookService {
     }
 
     public void delete (Long id) {repository.deleteById(id);}
+
+    public Iterable<BookEntity> getPublisher(String title, String city) {
+        return repository.findDistinctByPublisher_TitleOrPublisherCity(title,city);
+    }
 }
