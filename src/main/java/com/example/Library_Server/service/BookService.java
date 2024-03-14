@@ -3,17 +3,14 @@ package com.example.Library_Server.service;
 import com.example.Library_Server.entity.BookEntity;
 import com.example.Library_Server.repository.BookRepository;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@Validated
 public class BookService {
     private final BookRepository repository;
 
@@ -25,7 +22,7 @@ public class BookService {
         return repository.findById(id);
     }
 
-    public BookEntity save (@Valid BookEntity data){
+    public BookEntity save (BookEntity data){
         return repository.save(data);
     }
 
