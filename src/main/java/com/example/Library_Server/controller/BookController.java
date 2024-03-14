@@ -1,7 +1,7 @@
 package com.example.Library_Server.controller;
 
 import com.example.Library_Server.entity.BookEntity;
-import com.example.Library_Server.entity.PublisherEntity;
+import com.example.Library_Server.entity.CityEntity;
 import com.example.Library_Server.response.BaseResponse;
 import com.example.Library_Server.response.DataResponse;
 import com.example.Library_Server.response.ListResponse;
@@ -37,10 +37,9 @@ public class BookController {
         }
     }
 
-// TODO разобраться с getPublisher
     @GetMapping("/publish")
-    public ResponseEntity<BaseResponse> getPublisher(@RequestParam String title, @RequestParam String city){
-        return ResponseEntity.ok(new ListResponse<>(service.getPublisher(title, city)));
+    public ResponseEntity<BaseResponse> getPublisher(@RequestParam String title, @RequestParam CityEntity city){
+        return ResponseEntity.ok(new ListResponse(service.getPublisher(title, city)));
     }
 
     @Operation(summary = "Сохранить книгу", description = "Позволяет сохранить информацию о книге.")

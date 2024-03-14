@@ -1,6 +1,7 @@
 package com.example.Library_Server.service;
 
 import com.example.Library_Server.entity.BookEntity;
+import com.example.Library_Server.entity.CityEntity;
 import com.example.Library_Server.repository.BookRepository;
 
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class BookService {
 
     public void delete (Long id) {repository.deleteById(id);}
 
-    public List<BookEntity> getPublisher(String title, String city) {
+    public List<BookEntity> getPublisher(String title, CityEntity city) {
         return repository.findDistinctByPublisher_TitleOrPublisherCity(title,city);
     }
 }
