@@ -24,6 +24,7 @@ public class CityEntity {
     private Long id;
     @Schema(description = "Название города", example = "Мирный")
     private String title;
+    @JsonIgnore
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     @Schema(description = "Издательство", example = "Просвящение")
     private List<PublisherEntity> publisher;

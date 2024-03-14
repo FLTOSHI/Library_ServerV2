@@ -37,9 +37,10 @@ public class BookController {
         }
     }
 
-    @GetMapping()
+
+    @GetMapping("/publish")
     public ResponseEntity<BaseResponse> getPublisher(@RequestParam String title, @RequestParam String city){
-        return ResponseEntity.ok(new ListResponse<PublisherEntity>(service.getPublisher(title, city))
+        return ResponseEntity.ok(new ListResponse<BookEntity>(service.getPublisher(title, city)));
     }
 
     @Operation(summary = "Сохранить книгу", description = "Позволяет сохранить информацию о книге.")
