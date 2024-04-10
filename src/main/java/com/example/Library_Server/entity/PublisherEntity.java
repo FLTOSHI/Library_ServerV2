@@ -1,5 +1,6 @@
 package com.example.Library_Server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -26,6 +27,7 @@ public class PublisherEntity {
     @JoinColumn(name = "city_id")
     @Schema(description = "Идентификатор города, в котором находится издательство", example = "420")
     private CityEntity city;
+    @JsonIgnore
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
     @Schema(description = "Книги этого издательства", example = "Учебник алгебры, 7 класс.")
     private List<BookEntity> books;

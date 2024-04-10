@@ -1,5 +1,6 @@
 package com.example.Library_Server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +34,7 @@ public class AuthorEntity {
     @Pattern(regexp = "[А-Я][а-я]{1,20}")
     @Schema (description = "Отчество автора", example = "Сергеевич")
     private String surname;
+    @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     @Schema (description = "Книги, написанные этим автором", example = "Руслан и Людмила")
     private List<BookEntity> books;
