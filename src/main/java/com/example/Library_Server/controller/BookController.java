@@ -38,7 +38,7 @@ public class BookController {
     }
 
     @GetMapping("/publish")
-    public ResponseEntity<BaseResponse> getPublisher(@RequestParam String title, @RequestParam CityEntity city){
+    public ResponseEntity<BaseResponse> getPublisher(@RequestParam String title, @RequestParam CityEntity city) {
         return ResponseEntity.ok(new ListResponse(service.getPublisher(title, city)));
     }
 
@@ -65,11 +65,14 @@ public class BookController {
 
     @Operation(summary = "Удалить книгу", description = "Позволяет удалить книгу из базы.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<BaseResponse> delete (@PathVariable @Parameter(description = "Идентификатор книги") Long id){
+    public ResponseEntity<BaseResponse> delete(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(new BaseResponse(true, "Книга удалена"));
-        } catch (RuntimeException exception) {
-            return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
+            service.delete(id);
+            return ResponseEntity.ok(
+                    new BaseResponse(true, "Книга удалена"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.ok(
+                    new BaseResponse(false, e.getMessage()));
         }
     }
 }

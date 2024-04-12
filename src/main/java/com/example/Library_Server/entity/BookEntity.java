@@ -2,7 +2,9 @@ package com.example.Library_Server.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 
@@ -18,23 +20,21 @@ import java.util.List;
 public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "Идентификатор книги", example = "743")
     private Long id;
+    @NotBlank()
+    @Pattern(regexp ="[А-Я][а-я]{1,20}")
+    private String title;
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "author_id")
-    @Schema(description = "Идентификатор автора", example = "241")
+    @JoinColumn(name ="author_id")
     private AuthorEntity author;
     @NotNull
     @ManyToOne
     @JoinColumn(name = "publisher_id")
-    @Schema(description = "Идентификатор издательства", example = "862")
     private PublisherEntity publisher;
     @NotNull
     @ManyToOne
     @JoinColumn(name = "genre_id")
-    @Schema(description = "Жанр", example = "Ужасы")
-    private GenreEntity genre;
-    @Schema(description = "Год выпуска книги", example = "2007")
+    private GenreEntity genre;//:Жанр
     private String year;
 }
