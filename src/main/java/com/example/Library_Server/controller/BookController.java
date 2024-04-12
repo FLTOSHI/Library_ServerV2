@@ -44,22 +44,26 @@ public class BookController {
 
     @Operation(summary = "Сохранить книгу", description = "Позволяет сохранить информацию о книге.")
     @PostMapping
-    public ResponseEntity<BaseResponse> save(@RequestBody @Parameter(description = "Книга") BookEntity book) {
+    public ResponseEntity<BaseResponse> save(@RequestBody BookEntity books) {
         try {
-            return ResponseEntity.ok(new DataResponse<BookEntity>(true, "Книга сохранена.", service.save(book)));
-        } catch (RuntimeException exception) {
-            return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
+            return ResponseEntity.ok(
+                    new DataResponse<BookEntity>(true, "Книга сохранена", service.save(books)));
+        } catch (RuntimeException e) {
+            return ResponseEntity.ok(
+                    new BaseResponse(false, e.getMessage()));
         }
     }
 
     @Operation(summary = "Обновить книгу", description = "Позволяет обновить информацию о книге.")
     @PutMapping
-    public ResponseEntity<BaseResponse> update(@RequestBody @Parameter(description = "Книга") BookEntity book) {
+    public ResponseEntity<BaseResponse> update(@RequestBody BookEntity books) {
         try {
-            service.update(book);
-            return ResponseEntity.ok(new BaseResponse(true, "Книга сохранена."));
-        } catch (RuntimeException exception) {
-            return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
+            service.update(books);
+            return ResponseEntity.ok(
+                    new BaseResponse(true, "Книга сохранен"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.ok(
+                    new BaseResponse(false, e.getMessage()));
         }
     }
 
