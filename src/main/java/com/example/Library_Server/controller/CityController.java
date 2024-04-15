@@ -59,11 +59,15 @@ public class CityController {
 
     @Operation(summary = "Удалить город", description = "Позволяет удалить город издательства из базы данных, используя его идентификатор (ID).")
     @DeleteMapping("/{id}")
-    public ResponseEntity<BaseResponse> delete (@PathVariable @Parameter(description = "Идентификатор города") Long id){
+    public ResponseEntity<BaseResponse> delete(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(new BaseResponse(true, "Город удалён"));
-        } catch (RuntimeException exception) {
-            return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
+            service.delete(id);
+            return ResponseEntity.ok(
+                    new BaseResponse(true, "Город удален"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.ok(
+                    new BaseResponse(false, e.getMessage()));
+
         }
     }
 }

@@ -45,6 +45,7 @@ public class GenreController {
             return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
         }
     }
+
     @Operation(summary = "Изменить жанр", description = "Позволяет обновлять информацию о жанре.")
     @PutMapping
     public ResponseEntity<BaseResponse> update(@RequestBody @Parameter(description = "Жанр") GenreEntity genre) {
@@ -55,14 +56,18 @@ public class GenreController {
             return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
         }
     }
+
     @Operation(summary = "Удалить жанр", description = "Позволяет удалить жанр из базы данных, используя его идентификатор (ID).")
     @DeleteMapping("/{id}")
-    public ResponseEntity<BaseResponse> delete (@PathVariable @Parameter(description = "Идентификатор жанра") Long id){
+    public ResponseEntity<BaseResponse> delete(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(new BaseResponse(true, "Жанр удалён"));
-        } catch (RuntimeException exception) {
-            return ResponseEntity.ok(new BaseResponse(false, exception.getMessage()));
+            service.delete(id);
+            return ResponseEntity.ok(
+                    new BaseResponse(true, "Жанр удален"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.ok(
+                    new BaseResponse(false, e.getMessage()));
+
         }
     }
-
 }
